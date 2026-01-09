@@ -1,0 +1,8 @@
+{
+  "name": "Gemini WhatsApp CRM",
+  "description": "A lightweight CRM that simulates WhatsApp integration with AI-powered conversation management and a sleek UI.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
