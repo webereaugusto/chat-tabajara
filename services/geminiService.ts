@@ -3,7 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
-export const generateLeadResponse = async (history: string, contactName: string) => {
+export const generateLeadResponse = async (history: string, contactName: string): Promise<string> => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -13,7 +13,12 @@ export const generateLeadResponse = async (history: string, contactName: string)
         temperature: 0.7,
       },
     });
-    return response.text;
+    
+    const text = response.text;
+    if (typeof text !== 'string') {
+      return "Não foi possível gerar uma resposta válida.";
+    }
+    return text;
   } catch (error) {
     console.error("Gemini Error:", error);
     return "Desculpe, não consegui gerar uma sugestão agora.";

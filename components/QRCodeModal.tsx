@@ -23,15 +23,18 @@ const QRCodeModal: React.FC<QRCodeModalProps> = ({ onConnected }) => {
 
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        const next = prev + 1.2;
+        if (next >= 100) {
           clearInterval(interval);
-          // Pequeno delay após 100% para dar feedback visual antes de fechar
-          setTimeout(onConnected, 1500);
+          // Delay extra antes de chamar onConnected para feedback visual de conclusão
+          setTimeout(() => {
+            onConnected();
+          }, 1200);
           return 100;
         }
-        return prev + 1.5; // Progressão mais lenta e natural
+        return next;
       });
-    }, 80);
+    }, 100);
 
     return () => clearInterval(interval);
   }, [isScanning, onConnected]);
